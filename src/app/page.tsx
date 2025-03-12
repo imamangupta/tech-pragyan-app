@@ -6,6 +6,7 @@ export default function Home() {
     <>
       <Header />
       Home
+      add about
     </>
   );
 }
