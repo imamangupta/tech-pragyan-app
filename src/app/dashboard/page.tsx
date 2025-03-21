@@ -3,14 +3,10 @@
 import { useState } from "react"
 import {
     BarChart3,
-    BookOpen,
-    Calendar,
+   
     Clock,
     FileText,
-    LayoutDashboard,
-    LogOut,
-    Map,
-    MessageSquare,
+ 
     Search,
     Trophy,
 } from "lucide-react"
