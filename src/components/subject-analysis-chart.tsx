@@ -1,12 +1,12 @@
 "use client"
 
 import { Bar } from "react-chartjs-2"
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from "chart.js"
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ChartOptions, ChartData } from "chart.js"
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
 export function SubjectAnalysisChart() {
-  const chartData = {
+  const chartData: ChartData<"bar"> = {
     labels: ["Physics", "Chemistry", "Biology"],
     datasets: [
       {
@@ -18,7 +18,7 @@ export function SubjectAnalysisChart() {
     ],
   }
 
-  const options = {
+  const options: ChartOptions<"bar"> = {
     responsive: true,
     maintainAspectRatio: false,
     scales: {
@@ -36,8 +36,8 @@ export function SubjectAnalysisChart() {
       },
       tooltip: {
         callbacks: {
-          label: (context: any) => {
-            const dataPoint = context.parsed.y
+          label: (context) => {
+            const dataPoint = context.parsed.y as number
             const percentages = ["35.6%", "31.1%", "33.3%"]
             const index = context.dataIndex
             return `${dataPoint} (${percentages[index]})`
@@ -53,4 +53,3 @@ export function SubjectAnalysisChart() {
     </div>
   )
 }
-
