@@ -9,12 +9,14 @@ import {
   Title,
   Tooltip,
   Legend,
+  ChartOptions,
+  ChartData
 } from "chart.js"
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend)
 
 export function WeeklyProgressChart() {
-  const chartData = {
+  const chartData: ChartData<"line"> = {
     labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
     datasets: [
       {
@@ -31,7 +33,7 @@ export function WeeklyProgressChart() {
     ],
   }
 
-  const options = {
+  const options: ChartOptions<"line"> = {
     responsive: true,
     maintainAspectRatio: false,
     scales: {
@@ -49,8 +51,8 @@ export function WeeklyProgressChart() {
       },
       tooltip: {
         callbacks: {
-          label: (context: any) => {
-            const dataPoint = context.parsed.y
+          label: (context) => {
+            const dataPoint = context.parsed.y as number
             const percentages = ["5.9%", "17.6%", "29.4%", "47.1%"]
             const index = context.dataIndex
             return `${dataPoint} (${percentages[index]})`
@@ -66,4 +68,3 @@ export function WeeklyProgressChart() {
     </div>
   )
 }
-
