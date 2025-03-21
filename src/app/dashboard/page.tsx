@@ -1,12 +1,8 @@
 "use client"
-
-import { useState } from "react"
 import {
     BarChart3,
-   
     Clock,
     FileText,
- 
     Search,
     Trophy,
 } from "lucide-react"

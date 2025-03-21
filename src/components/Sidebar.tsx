@@ -8,6 +8,7 @@ import {
     LogOut,
     Map,
     MessageSquare,
+    Settings,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { usePathname  } from "next/navigation";
@@ -63,6 +64,12 @@ export default function Sidebar() {
                         <Button variant={pathname.includes("ai-roadmap")?'default':'ghost'} className="w-full  my-1 justify-start cursor-pointer">
                             <Map className="mr-2 h-4 w-4" />
                             AI-Roadmap
+                        </Button>
+                    </Link>
+                    <Link href="/dashboard/ai-roadmap">
+                        <Button variant={pathname.includes("ai-roadmap")?'default':'ghost'} className="w-full  my-1 justify-start cursor-pointer">
+                            <Settings className="mr-2 h-4 w-4" />
+                            Setting
                         </Button>
                     </Link>
                 </div>

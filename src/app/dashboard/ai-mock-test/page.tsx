@@ -1,9 +1,10 @@
 "use client"
 import Sidebar from '@/components/Sidebar'
-import React from 'react'
+import React  from 'react'
 import {
   Search,
 } from "lucide-react"
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 // import React from 'react';
@@ -12,6 +13,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Card, CardContent } from '@/components/ui/card';
 import { FileIcon } from 'lucide-react';
 import TestModel from './components/TestModel'
+
 
 interface TestItem {
   id: string;
@@ -23,8 +25,7 @@ interface TestItem {
 export default function page() {
 
 
-
-  const [tests, setTests] = React.useState<TestItem[]>([
+  const [tests, setTests] = useState<TestItem[]>([
     { id: '1', title: 'Physics test', marks: 40, duration: 10 },
     { id: '2', title: 'Physics test', marks: 40, duration: 10 },
     { id: '3', title: 'Physics test', marks: 40, duration: 10, isSelected: true }

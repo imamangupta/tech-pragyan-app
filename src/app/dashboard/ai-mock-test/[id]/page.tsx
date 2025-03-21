@@ -18,7 +18,7 @@ interface Question {
   points: string
 }
 
-export default function page() {
+export default function Page() {
 
     const [selectedAnswers, setSelectedAnswers] = useState<Record<number, string>>({})
 
