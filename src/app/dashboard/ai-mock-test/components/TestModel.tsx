@@ -33,14 +33,39 @@ export default function ResponsiveDialog() {
   }, []);
 
   // Function to open link in a new window with specified dimensions
+  // const openInNewWindow = (e: React.MouseEvent) => {
+  //   e.preventDefault();
+  //   const url = `/dashboard/ai-mock-test/${subjectId}`;
+  //   const windowFeatures = 'width=1200,height=800,resizable=yes,scrollbars=yes,status=yes';
+  //   window.open(url, '_blank', windowFeatures);
+  //   setIsOpen(false);
+  // };
+
   const openInNewWindow = (e: React.MouseEvent) => {
     e.preventDefault();
+  
     const url = `/dashboard/ai-mock-test/${subjectId}`;
-    const windowFeatures = 'width=1200,height=800,resizable=yes,scrollbars=yes,status=yes';
-    window.open(url, '_blank', windowFeatures);
+  
+    // Get full screen dimensions
+    const width = window.screen.availWidth;
+    const height = window.screen.availHeight;
+  
+    const windowFeatures = `width=${width},height=${height},top=0,left=0,toolbar=no,location=no,menubar=no,scrollbars=yes,resizable=yes,fullscreen=yes`;
+  
+    // Open the URL in a new fullscreen window
+    const newWindow = window.open(url, '_blank', windowFeatures);
+  
+    if (newWindow) {
+      newWindow.moveTo(0, 0);
+      newWindow.resizeTo(width, height);
+    }
+  
     setIsOpen(false);
   };
+  
+  
 
+  
   return (
     <div className="flex flex-col">
       <Button
