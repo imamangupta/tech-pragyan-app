@@ -22,7 +22,7 @@ interface TestItem {
   duration: number;
   isSelected?: boolean;
 }
-export default function page() {
+export default function Page() {
 
 
   const [tests, setTests] = useState<TestItem[]>([
