@@ -11,6 +11,7 @@ import {
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { usePathname  } from "next/navigation";
+import Link from "next/link";
 
 export default function Sidebar() {
     const pathname = usePathname();
@@ -28,42 +29,42 @@ export default function Sidebar() {
 
             <nav className="flex-1 py-4">
                 <div className="space-y-1 px-3">
-                    <a href="/dashboard/overview">
+                    <Link href="/dashboard/overview">
                         <Button variant={pathname.includes("overview")?'default':'ghost'}  className="w-full my-1 justify-start cursor-pointer">
                             <LayoutDashboard className="mr-2 h-4 w-4" />
                             Dashboard
                         </Button>
-                    </a>
-                    <a href="/dashboard/ai-mock-test">
+                    </Link>
+                    <Link href="/dashboard/ai-mock-test">
                         <Button variant={pathname.includes("ai-mock-test")?'default':'ghost'} className="w-full my-1 justify-start cursor-pointer">
                             <FileText className="mr-2 h-4 w-4" />
                             AI-Mock Test
                         </Button>
-                    </a>
-                    <a href="/dashboard/ai-study-plan">
+                    </Link>
+                    <Link href="/dashboard/ai-study-plan">
                         <Button variant={pathname.includes("ai-study-plan")?'default':'ghost'} className="w-full my-1 justify-start cursor-pointer">
                             <BookOpen className="mr-2 h-4 w-4" />
                             AI-Study Plan
                         </Button>
-                    </a>
-                    <a href="/dashboard/ai-recommend">
+                    </Link>
+                    <Link href="/dashboard/ai-recommend">
                         <Button variant={pathname.includes("ai-recommend")?'default':'ghost'} className="w-full my-1 justify-start cursor-pointer">
                             <Calendar className="mr-2 h-4 w-4" />
                             AI-Recommend
                         </Button>
-                    </a>
-                    <a href="/dashboard/news-forum">
+                    </Link>
+                    <Link href="/dashboard/news-forum">
                         <Button variant={pathname.includes("news-forum")?'default':'ghost'} className="w-full my-1 justify-start cursor-pointer">
                             <MessageSquare className="mr-2 h-4 w-4" />
                             News Forum
                         </Button>
-                    </a>
-                    <a href="/dashboard/ai-roadmap">
+                    </Link>
+                    <Link href="/dashboard/ai-roadmap">
                         <Button variant={pathname.includes("ai-roadmap")?'default':'ghost'} className="w-full  my-1 justify-start cursor-pointer">
                             <Map className="mr-2 h-4 w-4" />
                             AI-Roadmap
                         </Button>
-                    </a>
+                    </Link>
                 </div>
             </nav>
 

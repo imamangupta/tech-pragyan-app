@@ -21,7 +21,6 @@ import { UpcomingEvents } from "@/components/upcoming-events"
 import Sidebar from "@/components/Sidebar"
 
 export default function Dashboard() {
-    const [userName, setUserName] = useState("Abhishek")
     const currentDate = new Date()
     const formattedDate = currentDate.toLocaleDateString("en-US", {
         weekday: "long",
@@ -40,7 +39,7 @@ export default function Dashboard() {
                 {/* Header */}
                 <header className="flex justify-between items-center mb-6">
                     <div>
-                        <h1 className="text-2xl font-bold">Hello, {userName}</h1>
+                        <h1 className="text-2xl font-bold">Hello, Abhishek</h1>
                         <p className="text-gray-500">{formattedDate}</p>
                     </div>
                     <div className="flex items-center gap-4">
@@ -48,7 +47,7 @@ export default function Dashboard() {
                             <Search className="h-4 w-4" />
                         </Button>
                         <Avatar>
-                            <AvatarImage src="/placeholder-user.jpg" alt={userName} />
+                            <AvatarImage src="/placeholder-user.jpg" alt='Abhishek' />
                             <AvatarFallback>AB</AvatarFallback>
                         </Avatar>
                     </div>
