@@ -94,7 +94,7 @@
 "use client"
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import Image from "next/image";
+// import Image from "next/image";
 import Sidebar from "@/components/Sidebar";
 
 const NewsForum: React.FC = () => {
@@ -105,6 +105,8 @@ const NewsForum: React.FC = () => {
       try {
         const response = await axios.get("http://localhost:4000/news"); // Make sure this API endpoint is working
         setNewsPosts(response.data);
+        console.log(newsPosts);
+        
       } catch (error) {
         console.error("Error fetching news:", error);
       }
@@ -125,7 +127,7 @@ const NewsForum: React.FC = () => {
 
         {/* Grid of Posts */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {newsPosts.map((post: any) => (
+          {/* {newsPosts.map((post: any) => (
             <div
               key={post._id} // Assuming the API returns MongoDB ObjectId as _id
               className="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-all"
@@ -150,7 +152,7 @@ const NewsForum: React.FC = () => {
               <h2 className="text-3xl md-xl font-semibold mt-2">{post.title}</h2>
               <p className="text-gray-600 text-xl md-text-lg">{post.content}</p>
             </div>
-          ))}
+          ))} */}
         </div>
       </div>
     </div>

@@ -110,7 +110,7 @@ export default function Home() {
 
           <div className="mt-6 text-center">
             <p>
-              Don't have an account?{" "}
+              Dont have an account?{" "}
               <Link href="/signup" className="text-blue-600 hover:underline">
                 Sign Up
               </Link>
