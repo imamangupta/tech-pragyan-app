@@ -8,6 +8,12 @@ export default function Home() {
       <Link href="/dashboard/overview">
       <Button>DashBoard</Button>
       </Link>
+      <Link href="/signup">
+      <Button>Signup</Button>
+      </Link>
+      <Link href="/login">
+      <Button>Login</Button>
+      </Link>
      
     </>
   );
