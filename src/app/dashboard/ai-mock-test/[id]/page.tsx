@@ -12,6 +12,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } f
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import * as faceapi from "face-api.js";
 import FaceDetech from "../components/FaceDetech"
+import useUnloadConfirmation from "@/hooks/use-leavetabcomfirm";
 
 interface Question {
   id: number
@@ -52,13 +53,16 @@ export default function MockTestPage() {
     unanswered: number
   } | null>(null)
 
- const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const videoRef = useRef<HTMLVideoElement>(null)
   const audioContextRef = useRef<AudioContext | null>(null)
   const analyserRef = useRef<AnalyserNode | null>(null)
   const dataArrayRef = useRef<Uint8Array | null>(null)
   const faceDetectionIntervalRef = useRef<number | null>(null)
   const noiseDetectionIntervalRef = useRef<number | null>(null)
+
+
+  useUnloadConfirmation("You have unsaved changes. Are you sure you want to leave?");
 
   // Generate questions for each section with correct answers
   const sections: Section[] = [
@@ -205,7 +209,7 @@ export default function MockTestPage() {
       // Simulate occasional detection of multiple faces (random for demo)
       const multipleFaces = Math.random() > 0.9
 
-      setMultipleFacesDetected(multipleFaces)
+      // setMultipleFacesDetected(multipleFaces)
     }, 3000)
 
   }
@@ -333,7 +337,7 @@ export default function MockTestPage() {
 
     // Set up resize event listener
     const handleResize = () => {
-      setWindowSize(window.screen.availWidth,window.screen.availHeight)
+      setWindowSize(window.screen.availWidth, window.screen.availHeight)
       // Check if window size has changed significantly (more than 50px in any dimension)
       if (
         Math.abs(window.innerWidth - initialWindowSize.width) > 50 ||
@@ -388,6 +392,102 @@ export default function MockTestPage() {
   const setWindowSize = (width: number, height: number): void => {
     window.resizeTo(width, height);
   };
+
+  const [isModelLoaded, setIsModelLoaded] = useState(false);
+
+
+  const startVideo = () => {
+    navigator.mediaDevices
+        .getUserMedia({ video: true })
+        .then((stream) => {
+            if (videoRef.current) {
+                videoRef.current.srcObject = stream;
+            }
+        })
+        .catch((err) => console.error("❌ Error accessing webcam:", err));
+};
+
+
+
+  useEffect(() => {
+    const loadModels = async () => {
+      try {
+        const MODEL_URL = "/models";  // Ensure models are in public/models
+        await faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL);
+        await faceapi.nets.faceLandmark68Net.loadFromUri(MODEL_URL);
+        await faceapi.nets.faceRecognitionNet.loadFromUri(MODEL_URL);
+        await faceapi.nets.faceExpressionNet.loadFromUri(MODEL_URL);
+
+        setIsModelLoaded(true);
+        console.log("✅ Models Loaded");
+        startVideo();
+      } catch (error) {
+        console.error("❌ Error loading models:", error);
+      }
+    };
+
+    loadModels();
+  }, []);
+
+
+
+   const handleVideoPlay = () => {
+          if (!canvasRef.current || !videoRef.current) return;
+  
+          const canvas = canvasRef.current;
+          const video = videoRef.current;
+  
+          const displaySize = {
+              width: video.videoWidth,
+              height: video.videoHeight,
+          };
+  
+          faceapi.matchDimensions(canvas, displaySize);
+  
+          const detectFaces = async () => {
+              try {
+                  const detections = await faceapi
+                      .detectAllFaces(video, new faceapi.TinyFaceDetectorOptions())
+                      .withFaceLandmarks()
+                      .withFaceExpressions();
+  
+                  const count = detections.length;
+                  // setFaceCount(count);
+  
+                  console.log(`👥 Number of people detected: ${count}`);
+                  if (count > 1) {
+                      setMultipleFacesDetected(true)
+                      console.log("many epeop")
+                      
+                  }else{
+                      setMultipleFacesDetected(false)
+  
+                  }
+  
+                  const resizedDetections = faceapi.resizeResults(
+                      detections,
+                      displaySize
+                  );
+  
+                  const ctx = canvas.getContext("2d");
+                  if (ctx) {
+                      ctx.clearRect(0, 0, canvas.width, canvas.height);
+                      faceapi.draw.drawDetections(canvas, resizedDetections);
+                      faceapi.draw.drawFaceLandmarks(canvas, resizedDetections);
+                      faceapi.draw.drawFaceExpressions(canvas, resizedDetections);
+                  }
+              } catch (error) {
+                  console.error("❌ Face detection error:", error);
+              }
+  
+              requestAnimationFrame(detectFaces);
+          };
+  
+          detectFaces();
+      };
+
+
+
 
   return (
     <div className="min-h-screen bg-white p-4 md:p-6">
@@ -590,9 +690,8 @@ export default function MockTestPage() {
                   {Array.from({ length: 30 }, (_, i) => (
                     <div
                       key={i}
-                      className={`w-full aspect-square rounded-sm ${
-                        selectedAnswers[selectedSection][i + 1] ? "bg-green-500" : "bg-gray-200 dark:bg-gray-700"
-                      }`}
+                      className={`w-full aspect-square rounded-sm ${selectedAnswers[selectedSection][i + 1] ? "bg-green-500" : "bg-gray-200 dark:bg-gray-700"
+                        }`}
                       title={`Question ${i + 1}`}
                     />
                   ))}
@@ -607,9 +706,8 @@ export default function MockTestPage() {
                     <Button
                       key={i}
                       variant={selectedAnswers[selectedSection][i + 1] ? "default" : "outline"}
-                      className={`w-full h-8 p-0 ${
-                        selectedAnswers[selectedSection][i + 1] ? "bg-green-500 hover:bg-green-600" : ""
-                      }`}
+                      className={`w-full h-8 p-0 ${selectedAnswers[selectedSection][i + 1] ? "bg-green-500 hover:bg-green-600" : ""
+                        }`}
                       onClick={() => {
                         const element = document.querySelector(`[id^="${selectedSection}-q${i + 1}-"]`)
                         if (element) {
@@ -636,7 +734,14 @@ export default function MockTestPage() {
                   </div>
                 </div>
                 <div className="relative bg-gray-100 dark:bg-gray-800 rounded-md aspect-video overflow-hidden">
-                  <video ref={videoRef} autoPlay playsInline muted className="w-full h-full object-cover" />
+                  <video
+                    ref={videoRef}
+                    autoPlay
+                    muted
+                    onPlay={handleVideoPlay}
+                    className="w-full h-full object-cover"
+                    style={{ border: "1px solid black" }}
+                  />
                   <canvas
                     ref={canvasRef}
                     style={{ position: "absolute", top: 0, left: 0 }}
@@ -650,6 +755,7 @@ export default function MockTestPage() {
                     </div>
                   )}
                 </div>
+                {isModelLoaded ? <p>✅ Model Loaded</p> : <p>⌛ Loading models...</p>}
               </div>
               {/* <FaceDetech/> */}
 
