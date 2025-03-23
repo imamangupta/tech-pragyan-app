@@ -17,7 +17,7 @@ export default function Home() {
   const router = useRouter(); // Initialize Next.js router
 
   // Handle input change
-  const handleChange = (e: { target: { id: any; value: any; }; }) => {
+  const handleChange = (e: { target: { id: string; value: string; }; }) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
