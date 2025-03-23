@@ -11,12 +11,19 @@ import {
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 
-export default function ResponsiveDialog() {
+interface Props {
+  subjectData: any;  // Replace `any` with the appropriate type for better type safety
+}
+
+export default function TestModel({ subjectData }: Props) {
+
   const [isOpen, setIsOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const subjectId = "mysubjectid"; // You can make this dynamic or pass as a prop
+  const subjectId = "mysubjectid"; 
+  console.log(subjectData)
+ 
 
-  // Handle responsive behavior
+
   useEffect(() => {
     const checkIfMobile = () => {
       setIsMobile(window.innerWidth < 640);
@@ -32,14 +39,6 @@ export default function ResponsiveDialog() {
     return () => window.removeEventListener('resize', checkIfMobile);
   }, []);
 
-  // Function to open link in a new window with specified dimensions
-  // const openInNewWindow = (e: React.MouseEvent) => {
-  //   e.preventDefault();
-  //   const url = `/dashboard/ai-mock-test/${subjectId}`;
-  //   const windowFeatures = 'width=1200,height=800,resizable=yes,scrollbars=yes,status=yes';
-  //   window.open(url, '_blank', windowFeatures);
-  //   setIsOpen(false);
-  // };
 
   const openInNewWindow = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -50,7 +49,7 @@ export default function ResponsiveDialog() {
     const width = window.screen.availWidth;
     const height = window.screen.availHeight;
   
-    const windowFeatures = `width=${width},height=${height},top=0,left=0,toolbar=no,location=no,menubar=no,scrollbars=yes,resizable=yes,fullscreen=yes`;
+    const windowFeatures = `width=${width},height=${height},top=0,left=0,toolbar=no,location=no,menubar=no,scrollbars=no,resizable=no,fullscreen=yes`;
   
     // Open the URL in a new fullscreen window
     const newWindow = window.open(url, '_blank', windowFeatures);
@@ -86,16 +85,18 @@ export default function ResponsiveDialog() {
           ${isMobile ? 'w-full mx-4' : 'w-full mx-auto'}
         `}>
           <DialogHeader className="p-6">
-            <DialogTitle className="text-xl font-bold">Are you absolutely sure?</DialogTitle>
+            <DialogTitle className="text-xl font-bold">{subjectData.title}</DialogTitle>
             <DialogDescription className="text-gray-500 mt-2">
-              This action cannot be undone.
+              Important Notic
             </DialogDescription>
           </DialogHeader>
           
           <div className="px-6 py-3 border-t border-gray-200">
+            {subjectData.subject.map((item:any)=>(  <p className="text-sm text-gray-600">
+              {item} 30 Question Any 25 Question for 100 Marks
+              </p>))}
             <p className="text-sm text-gray-600">
-              You will be starting a timed test. Once started, the timer cannot be paused.
-              The test will open in a new window.
+              
             </p>
           </div>
           

@@ -21,14 +21,15 @@ interface TestItem {
   marks: number;
   duration: number;
   isSelected?: boolean;
+  subject:string[];
 }
 export default function Page() {
 
-
   const [tests, setTests] = useState<TestItem[]>([
-    { id: '1', title: 'Physics test', marks: 40, duration: 10 },
-    { id: '2', title: 'Physics test', marks: 40, duration: 10 },
-    { id: '3', title: 'Physics test', marks: 40, duration: 10, isSelected: true }
+    { id: '1', title: 'Jee Main Mock Test', marks: 300, duration: 180, subject:['Physics','Chemistry','Mathematics'] },
+    { id: '2', title: 'Jee Physics Mock Test', marks: 40, duration: 10 ,subject:['Physics']},
+    { id: '3', title: 'Jee Chemistry Mock Test', marks: 40, duration: 10,subject:['Chemistry'] },
+    { id: '4', title: 'Jee Mathematics Mock Test', marks: 40, duration: 10, subject:['Mathematics'] }
   ]);
 
   const handleSelect = (id: string) => {
@@ -37,6 +38,7 @@ export default function Page() {
       isSelected: test.id === id
     })));
   };
+
   return (
     <div className="flex min-h-screen bg-gray-50">
 
@@ -59,11 +61,9 @@ export default function Page() {
           </div>
         </header>
 
-
-
         <div>
           <div className="w-full  mx-auto p-4 space-y-4">
-            {tests.map((test) => (
+            {tests.map((test,index) => (
               <Card
                 key={test.id}
                 className={`border-2 transition-all ${test.isSelected ? 'border-blue-500 shadow-md' : 'border-gray-200'}`}
@@ -81,36 +81,14 @@ export default function Page() {
                       </div>
                     </div>
                     <div className="flex gap-2">
-                      <Button
-                        variant="outline"
-                        className="bg-teal-500 hover:bg-teal-600 text-white border-none"
-                      >
-                        Prepare Test
-                      </Button>
-                      {/* <Button
-                        variant="outline"
-                        className="bg-black hover:bg-gray-800 text-white border-none"
-                      >
-                        Start Test
-                      </Button> */}
-                      <TestModel/>
+                      <TestModel subjectData={tests[index]}/>
                     </div>
                   </div>
                 </CardContent>
               </Card>
             ))}
           </div>
-
-
-
-            
-       
-
         </div>
-
-
-
-
       </main>
 
     </div>

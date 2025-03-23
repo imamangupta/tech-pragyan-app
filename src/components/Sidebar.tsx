@@ -66,6 +66,12 @@ export default function Sidebar() {
                             AI-Roadmap
                         </Button>
                     </Link>
+                    <Link href="/dashboard/profile">
+                        <Button variant={pathname.includes("ai-roadmap")?'default':'ghost'} className="w-full  my-1 justify-start cursor-pointer">
+                            <Map className="mr-2 h-4 w-4" />
+                            Profile
+                        </Button>
+                    </Link>
                     <Link href="/dashboard/ai-roadmap">
                         <Button variant={pathname.includes("ai-roadmap")?'default':'ghost'} className="w-full  my-1 justify-start cursor-pointer">
                             <Settings className="mr-2 h-4 w-4" />
