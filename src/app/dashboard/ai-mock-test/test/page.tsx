@@ -10,7 +10,7 @@ const MultiFaceDetection: React.FC = () => {
     const videoRef = useRef<HTMLVideoElement | null>(null);
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const [isModelLoaded, setIsModelLoaded] = useState(false);
-    const [faceCount, setFaceCount] = useState(0);
+    // const [faceCount, setFaceCount] = useState(0);
 
     //   useUnloadConfirmation('alsdkjflasdkfj')
     useUnloadConfirmation("You have unsaved changes. Are you sure you want to leave?");
@@ -67,7 +67,7 @@ const MultiFaceDetection: React.FC = () => {
                     .withFaceExpressions();
 
                 const count = detections.length;
-                setFaceCount(count);
+                // setFaceCount(count);
 
                 console.log(`👥 Number of people detected: ${count}`);
                 if (count > 1) {

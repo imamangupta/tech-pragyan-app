@@ -11,7 +11,7 @@ import { AlertTriangle, Clock, Users, Volume2 } from "lucide-react"
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import * as faceapi from "face-api.js";
-import FaceDetech from "../components/FaceDetech"
+// import FaceDetech from "../components/FaceDetech"
 import useUnloadConfirmation from "@/hooks/use-leavetabcomfirm";
 
 interface Question {
@@ -208,6 +208,8 @@ export default function MockTestPage() {
 
       // Simulate occasional detection of multiple faces (random for demo)
       const multipleFaces = Math.random() > 0.9
+      console.log(multipleFaces);
+      
 
       // setMultipleFacesDetected(multipleFaces)
     }, 3000)
