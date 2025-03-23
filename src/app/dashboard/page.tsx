@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { WeeklyProgressChart } from "@/components/weekly-progress-chart"
 import { SubjectAnalysisChart } from "@/components/subject-analysis-chart"
-import { ActivityHeatmap } from "@/components/activity-heatmap"
+// import { ActivityHeatmap } from "@/components/activity-heatmap"
 import { StatCard } from "@/components/stat-card"
 import { UpcomingEvents } from "@/components/upcoming-events"
 import Sidebar from "@/components/Sidebar"
@@ -100,7 +100,7 @@ export default function Dashboard() {
                     <Card className="col-span-1 lg:col-span-1">
                         <CardContent className="p-6">
                             <h2 className="text-xl font-bold mb-4">Daily Activity</h2>
-                            <ActivityHeatmap />
+                            {/* <ActivityHeatmap /> */}
                         </CardContent>
                     </Card>
                 </div>

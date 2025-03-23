@@ -12,7 +12,12 @@ import {
 import { Button } from '@/components/ui/button';
 
 interface Props {
-  subjectData: any;  // Replace `any` with the appropriate type for better type safety
+  subjectData:  {  id: string;
+    title: string;
+    marks: number;
+    duration: number;
+    isSelected?: boolean;
+    subject:string[] }  // Replace `any` with the appropriate type for better type safety
 }
 
 export default function TestModel({ subjectData }: Props) {
@@ -92,7 +97,7 @@ export default function TestModel({ subjectData }: Props) {
           </DialogHeader>
           
           <div className="px-6 py-3 border-t border-gray-200">
-            {subjectData.subject.map((item:any)=>(  <p className="text-sm text-gray-600">
+            {subjectData.subject.map((item:string)=>(  <p className="text-sm text-gray-600" key={item}>
               {item} 30 Question Any 25 Question for 100 Marks
               </p>))}
             <p className="text-sm text-gray-600">
