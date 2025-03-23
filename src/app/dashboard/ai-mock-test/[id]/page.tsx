@@ -157,7 +157,9 @@ export default function MockTestPage() {
       }
 
       // Initialize audio context for noise detection
-      const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)()
+      const audioContext = new (window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext)();
+
+      // const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)()
       audioContextRef.current = audioContext
 
       const audioSource = audioContext.createMediaStreamSource(stream)

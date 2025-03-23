@@ -12,7 +12,12 @@ import {
 import { Button } from '@/components/ui/button';
 
 interface Props {
-  subjectData: any;  // Replace `any` with the appropriate type for better type safety
+  subjectData:  {  id: string;
+    title: string;
+    marks: number;
+    duration: number;
+    isSelected?: boolean;
+    subject:string[] }  // Replace `any` with the appropriate type for better type safety
 }
 
 export default function TestModel({ subjectData }: Props) {
