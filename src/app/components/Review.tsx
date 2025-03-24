@@ -97,6 +97,9 @@ const Review = () => {
 
   const visibleReviews = reviews.slice(currentIndex, currentIndex + 3);
 
+  console.log(visibleReviews);
+  
+
   return (
     <div className="w-full px-4 md:px-12 py-11 bg-black flex flex-col justify-start items-center gap-2.5 overflow-hidden">
       <div className="w-full flex flex-col justify-start items-center gap-[35px]">

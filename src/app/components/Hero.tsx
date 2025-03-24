@@ -40,7 +40,7 @@ const Hero = () => {
               {/* Left Column - Quote and Stats */}
               <div className="w-full md:w-[361px] flex flex-col justify-start items-start gap-6">
                 <div className="flex flex-col justify-center items-start">
-                  <div className="text-black text-6xl md:text-8xl font-normal font-['Inter'] leading-none">"</div>
+                  <div className="text-black text-6xl md:text-8xl font-normal font-['Inter'] leading-none"></div>
                   <div className="text-black text-sm md:text-base font-normal font-['Poppins']">
                     Our AI-powered system personalizes JEE and competitive exam prep by adapting quizzes to student
                     strengths and weaknesses. With AI-driven insights, targeted study material, and flexible assessments,
