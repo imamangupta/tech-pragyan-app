@@ -117,7 +117,7 @@ const Review = () => {
           </button>
           <div className="w-full max-w-[1200px] overflow-x-hidden">
             <div className="flex transition-transform duration-300" style={{ transform: `translateX(-${currentIndex * (100 / 3)}%)` }}>
-              {reviews.map((review, index) => (
+              {reviews.map((review) => (
                 <div key={review.id} className="w-full flex-shrink-0 p-6 bg-white rounded-lg flex flex-col justify-start items-start gap-6 mx-2" style={{ width: 'calc(100% / 3)' }}>
                   <div className="flex justify-start items-center gap-1 text-yellow-500">
                     {[...Array(5)].map((_, i) => (
