@@ -176,7 +176,7 @@ export default function OtpVerificationPage() {
                                 {otp.map((digit, index) => (
                                     <div key={index} className="w-full">
                                         <input
-                                            ref={(el:any) => (inputRefs.current[index] = el)}
+                                            ref={(el:unknown) => (inputRefs.current[index] = el)}
                                             id={`otp-input-${index}`}
                                             type="text"
                                             inputMode="numeric"
