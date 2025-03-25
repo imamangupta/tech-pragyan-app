@@ -4,8 +4,18 @@ import React, { useEffect, useRef, useState } from "react";
 import * as faceapi from "face-api.js";
 import useUnloadConfirmation from "@/hooks/use-leavetabcomfirm";
 import { Users, } from "lucide-react"
+import useGenerateQuestion from "@/hooks/use-generatequestion";
+import { useMemo } from "react";
 
 const MultiFaceDetection: React.FC = () => {
+
+    // let dataquestion = useGenerateQuestion(['Physics','Chemistry','Mathematics'])
+    // console.log(dataquestion);
+    const dataquestion = useMemo(() => useGenerateQuestion(['Physics', 'Chemistry', 'Mathematics']), []);
+    console.log(dataquestion);
+
+    
+
     const [multipleFacesDetected, setMultipleFacesDetected] = useState(false)
     const videoRef = useRef<HTMLVideoElement | null>(null);
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -103,6 +113,9 @@ const MultiFaceDetection: React.FC = () => {
 
     return (
         <div className="mb-4">
+            <div>
+                useGenerateQuestion
+            </div>
             <div className="flex justify-between items-center mb-2">
                 <h3 className="font-medium">Proctoring Camera</h3>
                 <div className="flex items-center text-xs text-red-500">

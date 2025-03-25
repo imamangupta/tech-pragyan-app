@@ -17,6 +17,7 @@ import { UpcomingEvents } from "@/components/upcoming-events"
 import Sidebar from "@/components/Sidebar"
 import { useEffect, useState } from "react"
 import { BaseUrlApi } from "@/utils/constant"
+import Link from "next/link"
 
 interface UserData {
     userName?: string;   // Optional property
@@ -38,6 +39,7 @@ export default function Dashboard() {
         const json = await response.json();
         setData(json.user)
         console.log(json);
+        console.log(json.user.id);
         
     }
 
@@ -142,22 +144,15 @@ export default function Dashboard() {
                     <CardContent className="p-6">
                         <div className="flex justify-between items-center mb-4">
                             <h2 className="text-xl font-bold">Upcoming Contest</h2>
-                            {/* <Button className="bg-black text-white hover:bg-gray-800">Add Event</Button> */}
+                            <Link href={'/dashboard/contest/leaderboard'} className="cursor-pointer">
+                            <Button className="bg-black text-white hover:bg-gray-800 cursor-pointer">Add Event</Button>
+                            </Link>
                         </div>
                         <UpcomingEvents />
                     </CardContent>
                 </Card>
                 
-                {/* Upcoming Events */}
-                <Card className="mb-6">
-                    <CardContent className="p-6">
-                        <div className="flex justify-between items-center mb-4">
-                            <h2 className="text-xl font-bold">Upcoming Contest</h2>
-                            {/* <Button className="bg-black text-white hover:bg-gray-800">Add Event</Button> */}
-                        </div>
-                        <UpcomingEvents />
-                    </CardContent>
-                </Card>
+                
 
                
 
