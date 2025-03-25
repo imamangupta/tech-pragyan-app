@@ -21,7 +21,14 @@ const userData = {
   avatar: "/placeholder.svg?height=128&width=128",
 }
 
-
+interface userDatamod {
+  id:string
+  userName: string;
+  email: string;
+  correctAnswer: string;
+  selectedValue: string;
+  status: boolean;
+}
 export default function ProfilePage() {
   const [mounted, setMounted] = useState(false)
 
@@ -30,8 +37,14 @@ export default function ProfilePage() {
   }, [])
 
 
-
-  const [user, setUser] = useState({})
+  const [user, setUser] = useState<userDatamod>({
+    id: "",
+    eamil: "",
+    userName: "",
+    correctAnswer: "",
+    selectedValue: "",
+    status: false,
+  });
   const [data, setData] = useState([])
   
   
@@ -101,7 +114,7 @@ export default function ProfilePage() {
                   </Avatar>
                 </motion.div>
                 <div className="text-center">
-                  <h2 className="text-2xl font-bold">{user.userName}</h2>
+                  <h2 className="text-2xl font-bold">{user?.userName}</h2>
                   <p className="text-muted-foreground">@{user.userName}</p>
                 </div>
                 <div className="w-full space-y-3">
