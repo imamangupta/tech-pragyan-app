@@ -29,12 +29,6 @@ interface Question {
   correctAnswer: string
 }
 
-interface Section {
-  id: string
-  name: string
-  questions: Question[]
-}
-
 interface TestItem {
   id: string
   title: string

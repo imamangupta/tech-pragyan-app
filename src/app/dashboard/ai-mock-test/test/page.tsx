@@ -4,15 +4,12 @@ import React, { useEffect, useRef, useState } from "react";
 import * as faceapi from "face-api.js";
 import useUnloadConfirmation from "@/hooks/use-leavetabcomfirm";
 import { Users, } from "lucide-react"
-import useGenerateQuestion from "@/hooks/use-generatequestion";
-import { useMemo } from "react";
+
 
 const MultiFaceDetection: React.FC = () => {
 
     // let dataquestion = useGenerateQuestion(['Physics','Chemistry','Mathematics'])
     // console.log(dataquestion);
-    const dataquestion = useMemo(() => useGenerateQuestion(['Physics', 'Chemistry', 'Mathematics']), []);
-    console.log(dataquestion);
 
     
 

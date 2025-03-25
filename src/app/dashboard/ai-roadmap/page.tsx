@@ -1,7 +1,6 @@
 "use client"
 import RoadmapGenerator from "@/components/roadmap-generator"
 import { Toaster } from "@/components/ui/toaster"
-import { ThemeToggle } from "@/components/theme-toggle"
 import { motion } from "framer-motion"
 import Sidebar from "@/components/Sidebar"
 
