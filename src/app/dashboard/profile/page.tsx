@@ -22,17 +22,28 @@ const userData = {
   avatar: "/placeholder.svg?height=128&width=128",
 }
 
-
+interface userDatamod {
+  userName: string;
+  id: string;
+  email: string;
+  correctAnswer: string;
+  selectedValue: string;
+  status: boolean;
+}
 export default function ProfilePage() {
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
     setMounted(true)
   }, [])
-
-
-
-  const [user, setUser] = useState({})
+  const [user, setUser] = useState<userDatamod>({
+    userName: "",
+    id: "",
+    email: "",
+    correctAnswer: "",
+    selectedValue: "",
+    status: false,
+  });
   const [data, setData] = useState([])
 
 
