@@ -17,18 +17,6 @@ import { useParams } from "next/navigation"
 import { allQuestion, BaseUrlApi, chemistryQuestion, mathematicsQuestion, physicsQuestion } from "@/utils/constant"
 import { useRouter } from 'next/navigation'
 
-interface Question {
-  id: number
-  text: string
-  options: {
-    id: string
-    value: string
-    label: string
-  }[]
-  points: string
-  correctAnswer: string
-}
-
 interface TestItem {
   id: string
   title: string
