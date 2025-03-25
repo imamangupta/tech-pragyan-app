@@ -67,8 +67,6 @@ export default function ProfilePage() {
   }
 
 
-  useEffect
-
   useEffect(() => {
     fetchData()
   }, [])
