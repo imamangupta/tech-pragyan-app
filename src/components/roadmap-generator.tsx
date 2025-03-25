@@ -14,6 +14,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } f
 import { Checkbox } from "@/components/ui/checkbox"
 import MultiSelect from "./multi-select"
 import { cn } from "@/lib/utils"
+import type React from "react"
 
 // Define types for our roadmap data
 export interface RoadmapNode {
@@ -31,7 +32,7 @@ export interface RoadmapNode {
     subject?: string
   }
   position: { x: number; y: number }
-  style?: any
+  style?: React.CSSProperties
 }
 
 export interface RoadmapEdge {
@@ -40,7 +41,7 @@ export interface RoadmapEdge {
   target: string
   type?: string
   animated?: boolean
-  style?: any
+  style?: React.CSSProperties
 }
 
 export interface RoadmapData {
@@ -85,6 +86,27 @@ export default function RoadmapGenerator() {
   useEffect(() => {
     setDuration(`${durationMonths} ${durationMonths === 1 ? "Month" : "Months"}`)
   }, [durationMonths])
+
+  interface RoadmapApiResponse {
+    title?: string
+    description?: string
+    topics?: Array<{
+      title?: string
+      description?: string
+      subject?: string
+      resources?: Array<
+        | string
+        | {
+            title?: string
+            name?: string
+            url?: string
+            link?: string
+            type?: "video" | "article" | "pdf" | "course"
+          }
+      >
+      subtopics?: string[]
+    }>
+  }
 
   const generateRoadmap = async () => {
     if (subjects.length === 0 || !level || !duration) {
@@ -139,7 +161,7 @@ export default function RoadmapGenerator() {
   }
 
   // Process the AI response into a format suitable for React Flow
-  const processRoadmapData = (data: any): RoadmapData => {
+  const processRoadmapData = (data: RoadmapApiResponse): RoadmapData => {
     const nodes: RoadmapNode[] = []
     const edges: RoadmapEdge[] = []
 
@@ -157,7 +179,8 @@ export default function RoadmapGenerator() {
 
     // Create nodes from the topics
     if (data.topics && Array.isArray(data.topics)) {
-      data.topics.forEach((topic: any, index: number) => {
+      data.topics.forEach((topic:any, index: number) => {
+      // data.topics.forEach((topic: RoadmapApiResponse["topics"][0] , index: number) => {
         const nodeId = `node-${index}`
         const subjectName = topic.subject || subjects[0]
         const color = subjectColors[subjectName] || "#64748b"
@@ -169,34 +192,46 @@ export default function RoadmapGenerator() {
             label: topic.title || `Topic ${index + 1}`,
             description: topic.description || "",
             links: topic.resources
-              ? topic.resources.map((resource: any) => {
-                  // Determine resource type based on URL or explicit type
-                  let type: "video" | "article" | "pdf" | "course" = "article"
-                  if (typeof resource === "string") {
-                    if (resource.includes("youtube.com") || resource.includes("youtu.be")) {
-                      type = "video"
-                    } else if (resource.includes(".pdf")) {
-                      type = "pdf"
-                    } else if (
-                      resource.includes("course") ||
-                      resource.includes("udemy") ||
-                      resource.includes("coursera")
-                    ) {
-                      type = "course"
+              ? topic.resources.map(
+                  (
+                    resource:
+                      | string
+                      | {
+                          title?: string
+                          name?: string
+                          url?: string
+                          link?: string
+                          type?: "video" | "article" | "pdf" | "course"
+                        },
+                  ) => {
+                    // Determine resource type based on URL or explicit type
+                    let type: "video" | "article" | "pdf" | "course" = "article"
+                    if (typeof resource === "string") {
+                      if (resource.includes("youtube.com") || resource.includes("youtu.be")) {
+                        type = "video"
+                      } else if (resource.includes(".pdf")) {
+                        type = "pdf"
+                      } else if (
+                        resource.includes("course") ||
+                        resource.includes("udemy") ||
+                        resource.includes("coursera")
+                      ) {
+                        type = "course"
+                      }
+                      return {
+                        title: resource,
+                        url: resource,
+                        type,
+                      }
+                    } else {
+                      return {
+                        title: resource.title || resource.name || "Resource",
+                        url: resource.url || resource.link || "#",
+                        type: resource.type || type,
+                      }
                     }
-                    return {
-                      title: resource,
-                      url: resource,
-                      type,
-                    }
-                  } else {
-                    return {
-                      title: resource.title || resource.name || "Resource",
-                      url: resource.url || resource.link || "#",
-                      type: resource.type || type,
-                    }
-                  }
-                })
+                  },
+                )
               : [],
             details: topic.subtopics || [],
             subject: subjectName,
@@ -286,8 +321,6 @@ export default function RoadmapGenerator() {
                 onChange={setSubjects}
                 placeholder="Select subjects..."
               />
-
-             
             </motion.div>
 
             <motion.div
@@ -434,4 +467,3 @@ export default function RoadmapGenerator() {
     </div>
   )
 }
-
