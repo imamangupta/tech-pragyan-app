@@ -41,33 +41,14 @@ const sampleData: Student[] = Array.from({ length: 50 }, (_, i) => ({
 export function LeaderboardClient() {
    const router = useRouter()
   const [searchTerm, setSearchTerm] = useState("");
-  const [sortConfig, setSortConfig] = useState<{
-    key: keyof Student;
-    direction: "asc" | "desc";
-  }>({ key: "rank", direction: "asc" });
   const [data, setData] = useState<Student[]>(sampleData);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [selectedStudent, setSelectedStudent] = useState<Student | null>(null);
   const [leadData, setLeadData] = useState([])
 
-  const handleSort = (key: keyof Student) => {
-    const direction =
-      sortConfig.key === key && sortConfig.direction === "asc" ? "desc" : "asc";
-    setSortConfig({ key, direction });
+  
 
-    const sortedData = [...data].sort((a, b) => {
-      if (direction === "asc") {
-        return a[key] > b[key] ? 1 : -1;
-      }
-      return a[key] < b[key] ? 1 : -1;
-    });
-    setData(sortedData);
-  };
-
-  const filteredData = data.filter(student =>
-    student.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    student.rank.toString().includes(searchTerm)
-  );
+ 
 
   const handleRefresh = () => {
     setIsRefreshing(true);

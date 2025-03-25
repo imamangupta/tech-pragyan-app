@@ -21,37 +21,6 @@ const userData = {
   avatar: "/placeholder.svg?height=128&width=128",
 }
 
-// Mock test history data
-const testHistory = [
-  {
-    id: "1",
-    title: "JEE Main Mock Test",
-    date: "March 25, 2025",
-    score: "-23/300",
-    paperLink: "/test-data",
-  },
-  {
-    id: "2",
-    title: "Physics Sectional Test",
-    date: "March 20, 2025",
-    score: "45/100",
-    paperLink: "#",
-  },
-  {
-    id: "3",
-    title: "Chemistry Sectional Test",
-    date: "March 15, 2025",
-    score: "60/100",
-    paperLink: "#",
-  },
-  {
-    id: "4",
-    title: "Mathematics Sectional Test",
-    date: "March 10, 2025",
-    score: "70/100",
-    paperLink: "#",
-  },
-]
 
 export default function ProfilePage() {
   const [mounted, setMounted] = useState(false)

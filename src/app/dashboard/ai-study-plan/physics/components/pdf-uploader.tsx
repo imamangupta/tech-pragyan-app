@@ -48,6 +48,8 @@ export default function PDFUploader() {
       // Redirect to the summary page
       router.push(`/summary/${fileId}`)
     } catch (error) {
+      console.log(error);
+      
       toast({
         title: "Upload failed",
         description: "There was an error uploading your PDF",
