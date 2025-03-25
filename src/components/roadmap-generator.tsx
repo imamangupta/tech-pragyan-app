@@ -179,7 +179,7 @@ export default function RoadmapGenerator() {
 
     // Create nodes from the topics
     if (data.topics && Array.isArray(data.topics)) {
-      data.topics.forEach((topic:any, index: number) => {
+      data.topics.forEach((topic: unknown, index: number) => {
       // data.topics.forEach((topic: RoadmapApiResponse["topics"][0] , index: number) => {
         const nodeId = `node-${index}`
         const subjectName = topic.subject || subjects[0]
