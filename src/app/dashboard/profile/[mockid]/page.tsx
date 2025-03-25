@@ -7,14 +7,14 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Badge } from "@/components/ui/badge"
 import { CheckCircle, XCircle } from "lucide-react"
-import { useParams } from "next/navigation"
+// import { useParams } from "next/navigation"
 // Import test data
 import { testData } from "@/lib/test-data"
-import { BaseUrlApi } from "@/utils/constant"
+// import { BaseUrlApi } from "@/utils/constant"
 
 export default function TestDataPage() {
   const [mounted, setMounted] = useState(false)
-  const params = useParams()
+  // const params = useParams()
 
   // const [subjects, setSubjects] = useState({})
   // const [testData, settestData] = useState(testData)
