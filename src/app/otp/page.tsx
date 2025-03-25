@@ -12,6 +12,8 @@ import { BaseUrlApi } from "@/utils/constant"
 import { useRouter } from 'next/navigation'
 
 export default function OtpVerificationPage() {
+    /// <reference path="" />
+    
     const [otp, setOtp] = useState<string[]>(Array(6).fill(""))
     const [loading, setLoading] = useState(false)
     const [resendDisabled, setResendDisabled] = useState(false)
@@ -176,7 +178,9 @@ export default function OtpVerificationPage() {
                                 {otp.map((digit, index) => (
                                     <div key={index} className="w-full">
                                         <input
-                                            ref={(el:unknown) => (inputRefs.current[index] = el)}
+                                            ref={function (el: Ref<HTMLInputElement>) {
+                                                return (inputRefs.current[index] = el)
+                                            }}
                                             id={`otp-input-${index}`}
                                             type="text"
                                             inputMode="numeric"
