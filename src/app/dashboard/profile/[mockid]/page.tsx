@@ -33,19 +33,19 @@ export default function TestDataPage() {
   const fetchData = async () => {
 
 
-    const response = await fetch(`${BaseUrlApi}/mocktest/id`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'id': params.mockid
-      },
-    });
-    const json = await response.json();
+    // const response = await fetch(`${BaseUrlApi}/mocktest/id`, {
+    //   method: 'GET',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //     'id': params.mockid
+    //   },
+    // });
+    // const json = await response.json();
     // setData(json.user)
 
     // setSubjects(json.data.answersData[0] )
     // settestData(json )
-    console.log(json.data);
+    // console.log(json.data);
   }
 
 
