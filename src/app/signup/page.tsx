@@ -26,7 +26,7 @@ export default function Home() {
     setLoading(true);
 
     try {
-      const response = await axios.post("http://localhost:4000/user/signup", formData);
+      const response = await axios.post("https://techpragyan-api.vercel.app/user/signup", formData);
       toast.success(response.data.message || "Signup successful!");
       setFormData({ name: "", email: "", password: "" });
     } catch (error) {

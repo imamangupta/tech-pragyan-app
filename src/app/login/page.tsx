@@ -27,7 +27,7 @@ export default function Home() {
     setLoading(true);
 
     try {
-      const response = await axios.post("http://localhost:4000/user/login", formData);
+      const response = await axios.post("https://techpragyan-api.vercel.app/user/login", formData);
       const { token, userId } = response.data;
 
       if (token && userId) {
