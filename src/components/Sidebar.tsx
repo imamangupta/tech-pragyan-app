@@ -51,7 +51,7 @@ export default function Sidebar() {
                     <Link href="/dashboard/ai-study-plan">
                         <Button variant={pathname.includes("ai-study-plan")?'default':'ghost'} className="w-full my-1 justify-start cursor-pointer">
                             <BookOpen className="mr-2 h-4 w-4" />
-                            AI-Study Plan
+                            AI-Study Material
                         </Button>
                     </Link>
                     {/* <Link href="/dashboard/ai-recommend">

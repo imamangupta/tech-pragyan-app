@@ -353,7 +353,7 @@ export default function MockTestPage() {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        userId: json2.user.id, subject: filteredTest,
+        userId: json2.user.id,userName:json2.user.userName , subject: filteredTest,
         answersData: selectedAnswers, resultData: results,
         timeSpent: timeSpent , securityEvents: securityEvents
       })

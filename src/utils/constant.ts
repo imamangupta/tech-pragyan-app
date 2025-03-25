@@ -1,5 +1,5 @@
-// export const BaseUrlApi = "http://localhost:4000/api";
-export const BaseUrlApi = "https://tech-pragyan-api.vercel.app/api";
+export const BaseUrlApi = "http://localhost:4000/api";
+// export const BaseUrlApi = "https://tech-pragyan-api.vercel.app/api";
 
 
 

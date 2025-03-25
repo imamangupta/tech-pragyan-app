@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Search, ArrowUpDown, RefreshCw, FileText } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import {
@@ -11,6 +11,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { BaseUrlApi } from "@/utils/constant";
+import { useRouter } from 'next/navigation'
 
 type Student = {
   id: number;
@@ -37,6 +39,7 @@ const sampleData: Student[] = Array.from({ length: 50 }, (_, i) => ({
 }));
 
 export function LeaderboardClient() {
+   const router = useRouter()
   const [searchTerm, setSearchTerm] = useState("");
   const [sortConfig, setSortConfig] = useState<{
     key: keyof Student;
@@ -45,9 +48,10 @@ export function LeaderboardClient() {
   const [data, setData] = useState<Student[]>(sampleData);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [selectedStudent, setSelectedStudent] = useState<Student | null>(null);
+  const [leadData, setLeadData] = useState([])
 
   const handleSort = (key: keyof Student) => {
-    const direction = 
+    const direction =
       sortConfig.key === key && sortConfig.direction === "asc" ? "desc" : "asc";
     setSortConfig({ key, direction });
 
@@ -81,8 +85,32 @@ export function LeaderboardClient() {
   };
 
   const handleViewPaper = (paperUrl: string) => {
-    window.open(paperUrl, '_blank');
+    
+    router.push(`/dashboard/contest/leaderboard/${paperUrl}`)
   };
+
+
+
+
+  const fetchData = async () => {
+    const response = await fetch(`${BaseUrlApi}/leaderboard/`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+
+      },
+    });
+    const json = await response.json();
+    // setData(json.user)
+    setLeadData(json.data)
+    console.log(json.data);
+  }
+
+
+  useEffect(() => {
+    fetchData()
+  }, [])
+
 
   return (
     <div className="min-h-screen bg-white p-4 md:p-8 animate-fade-in">
@@ -116,7 +144,7 @@ export function LeaderboardClient() {
                 <TableRow>
                   <TableHead className="w-[100px]">
                     <button
-                      onClick={() => handleSort("rank")}
+                     
                       className="flex items-center gap-2 text-blue-900 hover:text-blue-700 transition-colors"
                     >
                       Rank
@@ -125,7 +153,7 @@ export function LeaderboardClient() {
                   </TableHead>
                   <TableHead>
                     <button
-                      onClick={() => handleSort("name")}
+                      
                       className="flex items-center gap-2 text-blue-900 hover:text-blue-700 transition-colors"
                     >
                       Name
@@ -134,7 +162,7 @@ export function LeaderboardClient() {
                   </TableHead>
                   <TableHead className="text-right">
                     <button
-                      onClick={() => handleSort("totalScore")}
+                      
                       className="flex items-center gap-2 ml-auto text-blue-900 hover:text-blue-700 transition-colors"
                     >
                       Total Score
@@ -143,7 +171,7 @@ export function LeaderboardClient() {
                   </TableHead>
                   <TableHead className="text-right">
                     <button
-                      onClick={() => handleSort("physicsScore")}
+                    
                       className="flex items-center gap-2 ml-auto text-blue-900 hover:text-blue-700 transition-colors"
                     >
                       Physics
@@ -152,7 +180,7 @@ export function LeaderboardClient() {
                   </TableHead>
                   <TableHead className="text-right">
                     <button
-                      onClick={() => handleSort("chemistryScore")}
+                    
                       className="flex items-center gap-2 ml-auto text-blue-900 hover:text-blue-700 transition-colors"
                     >
                       Chemistry
@@ -161,7 +189,7 @@ export function LeaderboardClient() {
                   </TableHead>
                   <TableHead className="text-right">
                     <button
-                      onClick={() => handleSort("mathsScore")}
+                    
                       className="flex items-center gap-2 ml-auto text-blue-900 hover:text-blue-700 transition-colors"
                     >
                       Maths
@@ -171,26 +199,28 @@ export function LeaderboardClient() {
                   <TableHead className="text-right">Actions</TableHead>
                 </TableRow>
               </TableHeader>
+
+
               <TableBody>
-                {filteredData.map((student) => (
+                {leadData?.map((student,index) => (
                   <TableRow
-                    key={student.id}
+                    key={student._id}
                     className="table-row-hover border-b border-blue-50 hover:bg-blue-50/30 transition-all duration-200"
-                    onClick={() => setSelectedStudent(student)}
+                    
                   >
-                    <TableCell className="font-medium text-blue-900">{student.rank}</TableCell>
-                    <TableCell className="font-medium">{student.name}</TableCell>
+                    <TableCell className="font-medium text-blue-900">{index+1}</TableCell>
+                    <TableCell className="font-medium">{student.userName}</TableCell>
                     <TableCell className="text-right font-semibold text-blue-700">
-                      {student.totalScore}
+                      {student?.totalScore}
                     </TableCell>
-                    <TableCell className="text-right text-blue-600">{student.physicsScore}</TableCell>
-                    <TableCell className="text-right text-blue-600">{student.chemistryScore}</TableCell>
-                    <TableCell className="text-right text-blue-600">{student.mathsScore}</TableCell>
+                    <TableCell className="text-right text-blue-600">{student?.sectionScores?.physics}</TableCell>
+                    <TableCell className="text-right text-blue-600">{student?.sectionScores?.chemistry}</TableCell>
+                    <TableCell className="text-right text-blue-600">{student?.sectionScores?.mathematics}</TableCell>
                     <TableCell className="text-right">
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
-                          handleViewPaper(student.paperUrl);
+                          handleViewPaper(student._id);
                         }}
                         className="inline-flex items-center gap-1 px-3 py-1.5 rounded-md bg-blue-100 text-blue-700 hover:bg-blue-200 transition-colors"
                       >

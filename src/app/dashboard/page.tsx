@@ -145,7 +145,7 @@ export default function Dashboard() {
                         <div className="flex justify-between items-center mb-4">
                             <h2 className="text-xl font-bold">Upcoming Contest</h2>
                             <Link href={'/dashboard/contest/leaderboard'} className="cursor-pointer">
-                            <Button className="bg-black text-white hover:bg-gray-800 cursor-pointer">Add Event</Button>
+                            <Button className="bg-black text-white hover:bg-gray-800 cursor-pointer">View Leaderboard</Button>
                             </Link>
                         </div>
                         <UpcomingEvents />
