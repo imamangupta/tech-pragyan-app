@@ -2,7 +2,6 @@
 
 import type React from "react"
 import { useState } from "react"
-import Image from "next/image"
 import Link from "next/link"
 import { motion } from "framer-motion"
 import { Loader2 } from "lucide-react"
@@ -11,7 +10,6 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Checkbox } from "@/components/ui/checkbox"
-import { toast } from "@/components/ui/use-toast"
 import { BaseUrlApi } from "@/utils/constant"
 import { useRouter } from 'next/navigation'
 

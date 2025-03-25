@@ -2,15 +2,15 @@
 
 import type React from "react"
 import { useState } from "react"
-import Image from "next/image"
+
 import Link from "next/link"
 import { motion } from "framer-motion"
-import { Loader2, Mail, Lock, Github, Eye, EyeOff } from "lucide-react"
+import { Loader2, Mail, Lock, Eye, EyeOff } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Checkbox } from "@/components/ui/checkbox"
-import { Separator } from "@/components/ui/separator"
+
 import { toast } from "@/components/ui/use-toast"
 import { BaseUrlApi } from "@/utils/constant"
 import { useRouter } from 'next/navigation'
@@ -61,18 +61,13 @@ export default function LoginPage() {
         // toast.error("Invalid Credentials")
       }
     } catch (error) {
+      console.log(error);
+      
       // toast.error("An error occurred. Please try again.")
     }
   }
 
-  // Handle social login
-  const handleSocialLogin = (provider: string) => {
-    console.log(`Logging in with ${provider}`)
-    toast({
-      title: "Social Login",
-      description: `Redirecting to ${provider} login...`,
-    })
-  }
+
 
   // Toggle password visibility
   const togglePasswordVisibility = () => {
@@ -230,7 +225,7 @@ export default function LoginPage() {
             className="mt-8 text-center"
           >
             <p>
-              Don't have an account?{" "}
+              Dont have an account?{" "}
               <Link href="/signup" className="text-primary font-medium hover:underline">
                 Sign Up
               </Link>

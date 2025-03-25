@@ -2,7 +2,6 @@
 
 import {
     BookOpen,
-    Calendar,
     FileText,
     LayoutDashboard,
     LogOut,

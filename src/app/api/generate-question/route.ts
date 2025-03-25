@@ -82,6 +82,8 @@ export async function POST(request: Request) {
       // Try to parse directly first
       jsonContent = JSON.parse(content)
     } catch (e) {
+      console.log(e);
+      
       // If direct parsing fails, try to extract JSON from markdown
       const jsonMatch = content.match(/```(?:json)?\s*([\s\S]*?)\s*```/)
       if (jsonMatch && jsonMatch[1]) {

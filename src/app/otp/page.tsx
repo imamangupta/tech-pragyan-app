@@ -2,7 +2,6 @@
 
 import type React from "react"
 import { useState, useRef, useEffect } from "react"
-import Image from "next/image"
 import Link from "next/link"
 import { motion } from "framer-motion"
 import { Loader2 } from "lucide-react"
@@ -164,7 +163,7 @@ export default function OtpVerificationPage() {
                 >
                     <h1 className="text-3xl font-bold mb-2 text-center">Verify Your Account</h1>
                     <p className="text-muted-foreground mb-8">
-                        We've sent a 6-digit verification code to your email address. Please enter it below to verify your account.
+                        Weve sent a 6-digit verification code to your email address. Please enter it below to verify your account.
                     </p>
 
                     <form className="space-y-6" onSubmit={handleSubmit}>
@@ -177,7 +176,7 @@ export default function OtpVerificationPage() {
                                 {otp.map((digit, index) => (
                                     <div key={index} className="w-full">
                                         <input
-                                            ref={(el: any | undefined) => (inputRefs.current[index] = el)}
+                                            ref={(el:any) => (inputRefs.current[index] = el)}
                                             id={`otp-input-${index}`}
                                             type="text"
                                             inputMode="numeric"
@@ -199,7 +198,7 @@ export default function OtpVerificationPage() {
                                 transition={{ duration: 0.5, delay: 0.4 }}
                                 className="text-sm text-center text-muted-foreground mt-2"
                             >
-                                Didn't receive the code?{" "}
+                                Didnt receive the code?{" "}
                                 <button
                                     type="button"
                                     onClick={handleResendOtp}
