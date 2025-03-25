@@ -13,10 +13,17 @@ import {
 import { Button } from "@/components/ui/button"
 import { usePathname  } from "next/navigation";
 import Link from "next/link";
+import { useRouter } from 'next/navigation'
 
 export default function Sidebar() {
     const pathname = usePathname();
     console.log(pathname);
+     const router = useRouter()
+
+    const handleLogOut = ()=>{
+        localStorage.clear()
+        router.push("/")
+    }
     
 
     return (
@@ -48,12 +55,12 @@ export default function Sidebar() {
                             AI-Study Plan
                         </Button>
                     </Link>
-                    <Link href="/dashboard/ai-recommend">
+                    {/* <Link href="/dashboard/ai-recommend">
                         <Button variant={pathname.includes("ai-recommend")?'default':'ghost'} className="w-full my-1 justify-start cursor-pointer">
                             <Calendar className="mr-2 h-4 w-4" />
                             AI-Recommend
                         </Button>
-                    </Link>
+                    </Link> */}
                     <Link href="/dashboard/news-forum">
                         <Button variant={pathname.includes("news-forum")?'default':'ghost'} className="w-full my-1 justify-start cursor-pointer">
                             <MessageSquare className="mr-2 h-4 w-4" />
@@ -67,13 +74,13 @@ export default function Sidebar() {
                         </Button>
                     </Link>
                     <Link href="/dashboard/profile">
-                        <Button variant={pathname.includes("ai-roadmap")?'default':'ghost'} className="w-full  my-1 justify-start cursor-pointer">
+                        <Button variant={pathname.includes("profile")?'default':'ghost'} className="w-full  my-1 justify-start cursor-pointer">
                             <Map className="mr-2 h-4 w-4" />
                             Profile
                         </Button>
                     </Link>
-                    <Link href="/dashboard/ai-roadmap">
-                        <Button variant={pathname.includes("ai-roadmap")?'default':'ghost'} className="w-full  my-1 justify-start cursor-pointer">
+                    <Link href="/dashboard/setting">
+                        <Button variant={pathname.includes("setting")?'default':'ghost'} className="w-full  my-1 justify-start cursor-pointer">
                             <Settings className="mr-2 h-4 w-4" />
                             Setting
                         </Button>
@@ -82,7 +89,7 @@ export default function Sidebar() {
             </nav>
 
             <div className="p-4 mt-auto">
-                <Button variant="ghost" className="w-full justify-start">
+                <Button variant="default" className="w-full justify-start cursor-pointer" onClick={handleLogOut}>
                     <LogOut className="mr-2 h-4 w-4" />
                     Logout
                 </Button>

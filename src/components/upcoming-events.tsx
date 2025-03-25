@@ -12,22 +12,22 @@ export function UpcomingEvents() {
   const events: Event[] = [
     {
       id: 1,
-      date: "Feb 20, 2024",
-      title: "Physic test",
+      date: "Today",
+      title: "Jee Main Mock Test",
       time: "10:00 AM",
       duration: "3hrs",
     },
     {
       id: 2,
-      date: "Feb 20, 2024",
-      title: "Physic test",
+      date: "Mar 30, 2025",
+      title: "Jee Main Mock Test",
       time: "10:00 AM",
       duration: "3hrs",
     },
     {
       id: 3,
-      date: "Feb 20, 2024",
-      title: "Physic test",
+      date: "Apr 6, 2025",
+      title: "Jee Main Mock Test",
       time: "10:00 AM",
       duration: "3hrs",
     },
@@ -47,7 +47,7 @@ export function UpcomingEvents() {
             </div>
           </div>
           <div className="w-1/4 flex justify-end">
-            <Button className="bg-black text-white hover:bg-gray-800">Practice</Button>
+            <Button className="bg-black text-white hover:bg-gray-800" disabled >Enrol</Button>
           </div>
         </div>
       ))}

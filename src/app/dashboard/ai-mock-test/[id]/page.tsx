@@ -13,6 +13,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import * as faceapi from "face-api.js";
 // import FaceDetech from "../components/FaceDetech"
 import useUnloadConfirmation from "@/hooks/use-leavetabcomfirm";
+import { useParams } from 'next/navigation'
 
 interface Question {
   id: number
@@ -32,40 +33,25 @@ interface Section {
   questions: Question[]
 }
 
-export default function MockTestPage() {
-  const [selectedSection, setSelectedSection] = useState<string>("physics")
-  const [selectedAnswers, setSelectedAnswers] = useState<Record<string, Record<number, string>>>({
-    physics: {},
-    math: {},
-    chemistry: {},
-  })
-  const [timeRemaining, setTimeRemaining] = useState(180 * 60) // 180 minutes in seconds
-  const [windowResized, setWindowResized] = useState(false)
-  const [initialWindowSize, setInitialWindowSize] = useState({ width: 0, height: 0 })
-  const [multipleFacesDetected, setMultipleFacesDetected] = useState(false)
-  const [noiseDetected, setNoiseDetected] = useState(false)
-  const [testSubmitted, setTestSubmitted] = useState(false)
-  const [testResults, setTestResults] = useState<{
-    totalScore: number
-    sectionScores: Record<string, number>
-    correctAnswers: number
-    incorrectAnswers: number
-    unanswered: number
-  } | null>(null)
+interface TestItem {
+  id: string;
+  title: string;
+  marks: number;
+  duration: number;
+  isSelected?: boolean;
+  subject:string[];
+}
 
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const videoRef = useRef<HTMLVideoElement>(null)
-  const audioContextRef = useRef<AudioContext | null>(null)
-  const analyserRef = useRef<AnalyserNode | null>(null)
-  const dataArrayRef = useRef<Uint8Array | null>(null)
-  const faceDetectionIntervalRef = useRef<number | null>(null)
-  const noiseDetectionIntervalRef = useRef<number | null>(null)
+const tests: TestItem[] = [
+  { id: '1', title: 'Jee Main Mock Test', marks: 300, duration: 180, subject:['physics','chemistry','mathematics']},
+  { id: '2', title: 'Jee Physics Mock Test', marks: 100, duration: 60 ,subject:['physics']},
+  { id: '3', title: 'Jee Chemistry Mock Test', marks: 100, duration: 60,subject:['chemistry']},
+  { id: '4', title: 'Jee Mathematics Mock Test', marks: 100, duration: 60, subject:['mathematics']}
+];
 
-
-  useUnloadConfirmation("You have unsaved changes. Are you sure you want to leave?");
 
   // Generate questions for each section with correct answers
-  const sections: Section[] = [
+  const questionData: Section[] = [
     {
       id: "physics",
       name: "Physics",
@@ -116,6 +102,57 @@ export default function MockTestPage() {
     },
   ]
 
+export default function MockTestPage() {
+
+  
+  const params = useParams()
+  const filteredTest = tests.find(test => test.id === params.id);
+  console.log(filteredTest);
+
+  const [sections, setSections] = useState(questionData)
+
+  // const filteredQuestionData = questionData.filter(section => 
+  //   filteredTest?.subject.some(subj => 
+  //     section.id.toLowerCase() === subj.toLowerCase()
+  //   )
+  // );
+  // setSections(filteredQuestionData)
+
+
+
+  const [selectedSection, setSelectedSection] = useState<string>(filteredTest?.subject[0] || '')
+  const [selectedAnswers, setSelectedAnswers] = useState<Record<string, Record<number, string>>>({
+    physics: {},
+    math: {},
+    chemistry: {},
+  })
+  const [timeRemaining, setTimeRemaining] = useState((sections.length * 60) * 60) // 180 minutes in seconds
+  const [windowResized, setWindowResized] = useState(false)
+  const [initialWindowSize, setInitialWindowSize] = useState({ width: 0, height: 0 })
+  const [multipleFacesDetected, setMultipleFacesDetected] = useState(false)
+  const [noiseDetected, setNoiseDetected] = useState(false)
+  const [testSubmitted, setTestSubmitted] = useState(false)
+  const [testResults, setTestResults] = useState<{
+    totalScore: number
+    sectionScores: Record<string, number>
+    correctAnswers: number
+    incorrectAnswers: number
+    unanswered: number
+  } | null>(null)
+
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const videoRef = useRef<HTMLVideoElement>(null)
+  const audioContextRef = useRef<AudioContext | null>(null)
+  const analyserRef = useRef<AnalyserNode | null>(null)
+  const dataArrayRef = useRef<Uint8Array | null>(null)
+  const faceDetectionIntervalRef = useRef<number | null>(null)
+  const noiseDetectionIntervalRef = useRef<number | null>(null)
+
+
+  useUnloadConfirmation("You have unsaved changes. Are you sure you want to leave?");
+
+
+
   const currentSection = sections.find((section) => section.id === selectedSection) || sections[0]
 
   const handleAnswerChange = (questionId: number, value: string) => {
@@ -127,6 +164,34 @@ export default function MockTestPage() {
       },
     }))
   }
+
+  // const handleAnswerChange = (
+  //   question: {
+  //     id: number;
+  //     text: string;
+  //     options: { id: string; value: string; label: string }[];
+  //     points: string;
+  //     correctAnswer: string;
+  //   },
+  //   selectedValue: string
+  // ) => {
+  //   const isCorrect = question.correctAnswer === selectedValue;
+  
+  //   setSelectedAnswers((prev) => ({
+  //     ...prev,
+  //     [selectedSection]: {
+  //       ...prev[selectedSection],
+  //       [question.id]: {
+  //         text: question.text,
+  //         options: question.options,
+  //         correctAnswer: question.correctAnswer,
+  //         selectedValue: selectedValue,
+  //         status: isCorrect,
+  //       },
+  //     },
+  //   }));
+  // };
+  
 
   const getAnsweredCount = (sectionId: string) => {
     return Object.keys(selectedAnswers[sectionId]).length
@@ -183,14 +248,6 @@ export default function MockTestPage() {
   }
 
 
-  // const videoRef = useRef<HTMLVideoElement>(null);
-  // const canvasRef = useRef<HTMLCanvasElement>(null);
-  // const faceDetectionIntervalRef = useRef<number | null>(null);
-
-  // const [isModelLoaded, setIsModelLoaded] = useState(false);
-  // const [faceCount, setFaceCount] = useState(0);
-  // const [multipleFacesDetected, setMultipleFacesDetected] = useState(false);
-
 
   // Simulate face detection (in a real app, you would use a face detection library)
   const startFaceDetection = () => {
@@ -218,27 +275,7 @@ export default function MockTestPage() {
 
   }
 
-  // useEffect(() => {
-  //   const loadModels = async () => {
-  //     try {
-  //       const MODEL_URL = "/models";  // Ensure models are in public/models
-  //       await faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL);
-  //       await faceapi.nets.faceLandmark68Net.loadFromUri(MODEL_URL);
-  //       await faceapi.nets.faceRecognitionNet.loadFromUri(MODEL_URL);
-  //       await faceapi.nets.faceExpressionNet.loadFromUri(MODEL_URL);
-
-  //       setIsModelLoaded(true);
-  //       console.log("Models Loaded");
-  //       startVideo();
-  //     } catch (error) {
-  //       console.error("Error loading models:", error);
-  //     }
-  //   };
-
-  //   loadModels();
-  // }, []);
-
-
+ 
 
 
 
@@ -515,9 +552,6 @@ export default function MockTestPage() {
             <Button
               variant="destructive"
               onClick={() => {
-                // setWindowSize(initialWindowSize.width,initialWindowSize.height)
-                // setWindowSize(window.screen.availWidth,window.screen.availHeight)
-                // In a real exam, you might force the window back or take other actions
                 setWindowResized(false)
               }}
             >

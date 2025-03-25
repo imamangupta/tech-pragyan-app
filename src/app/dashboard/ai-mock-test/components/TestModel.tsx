@@ -24,7 +24,7 @@ export default function TestModel({ subjectData }: Props) {
 
   const [isOpen, setIsOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const subjectId = "mysubjectid"; 
+  const subjectId = subjectData.id; 
   console.log(subjectData)
  
 
@@ -68,13 +68,12 @@ export default function TestModel({ subjectData }: Props) {
   };
   
   
-
   
   return (
     <div className="flex flex-col">
       <Button
         onClick={() => setIsOpen(true)}
-        className="bg-blue-600 hover:bg-blue-700 text-white"
+        className="bg-blue-600 hover:bg-blue-700 text-white cursor-pointer"
       >
         Start Test
       </Button>

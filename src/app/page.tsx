@@ -11,7 +11,7 @@ import Footer from './components/Footer'
 export default function Home() {
   return (
     <>
-      {/* <Link href="/dashboard/overview">
+      <Link href="/dashboard/overview">
         <Button>DashBoard</Button>
       </Link>
       <Link href="/signup">
@@ -19,7 +19,7 @@ export default function Home() {
       </Link>
       <Link href="/login">
         <Button>Login</Button>
-      </Link> */}
+      </Link>
 
     <Hero/>
     <Feature/>

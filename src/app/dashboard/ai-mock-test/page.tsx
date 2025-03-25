@@ -26,10 +26,10 @@ interface TestItem {
 export default function Page() {
 
   const [tests, setTests] = useState<TestItem[]>([
-    { id: '1', title: 'Jee Main Mock Test', marks: 300, duration: 180, subject:['Physics','Chemistry','Mathematics'] },
-    { id: '2', title: 'Jee Physics Mock Test', marks: 40, duration: 10 ,subject:['Physics']},
-    { id: '3', title: 'Jee Chemistry Mock Test', marks: 40, duration: 10,subject:['Chemistry'] },
-    { id: '4', title: 'Jee Mathematics Mock Test', marks: 40, duration: 10, subject:['Mathematics'] }
+    { id: '1', title: 'Jee Main Mock Test', marks: 300, duration: 180, subject:['Physics','Chemistry','Mathematics']},
+    { id: '2', title: 'Jee Physics Mock Test', marks: 100, duration: 60 ,subject:['Physics']},
+    { id: '3', title: 'Jee Chemistry Mock Test', marks: 100, duration: 60,subject:['Chemistry']},
+    { id: '4', title: 'Jee Mathematics Mock Test', marks: 100, duration: 60, subject:['Mathematics']}
   ]);
 
   const handleSelect = (id: string) => {
@@ -38,6 +38,15 @@ export default function Page() {
       isSelected: test.id === id
     })));
   };
+
+  const currentDate = new Date()
+  const formattedDate = currentDate.toLocaleDateString("en-US", {
+      weekday: "long",
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+  })
+
 
   return (
     <div className="flex min-h-screen bg-zinc-200">
@@ -48,7 +57,7 @@ export default function Page() {
         <header className="flex justify-between items-center mb-6">
           <div>
             <h1 className="text-2xl font-bold">Ai - Mock Test</h1>
-            <p className="text-gray-500">Tuesday, 18 March, 2025</p>
+            <p className="text-gray-500">{formattedDate}</p>
           </div>
           <div className="flex items-center gap-4">
             <Button variant="outline" size="icon" className="rounded-full">
