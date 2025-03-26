@@ -20,6 +20,9 @@ export default function Home() {
       <Link href="/login">
         <Button>Login</Button>
       </Link>
+      <Link href="/login">
+        <Button>Login</Button>
+      </Link>
 
     <Hero/>
     <Feature/>
