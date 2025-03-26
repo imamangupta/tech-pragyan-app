@@ -17,18 +17,6 @@ import { useParams } from "next/navigation"
 import { allQuestion, BaseUrlApi, chemistryQuestion, mathematicsQuestion, physicsQuestion } from "@/utils/constant"
 import { useRouter } from 'next/navigation'
 
-interface Question {
-  id: number
-  text: string
-  options: {
-    id: string
-    value: string
-    label: string
-  }[]
-  points: string
-  correctAnswer: string
-}
-
 interface TestItem {
   id: string
   title: string
@@ -46,21 +34,22 @@ const tests: TestItem[] = [
 ]
 
 
+
 export default function MockTestPage() {
   const params = useParams()
   const filteredTest = tests.find((test) => test.id === params.id)
   // console.log(filteredTest)
-  const myQuestionData = params.id === '1' 
-  ? allQuestion 
-  : params.id === '2' 
-  ? physicsQuestion
-  : params.id === '3' 
-  ? chemistryQuestion
-  : params.id === '4' 
-  ? mathematicsQuestion
-  : allQuestion;
+  const myQuestionData = params.id === '1'
+    ? allQuestion
+    : params.id === '2'
+      ? physicsQuestion
+      : params.id === '3'
+        ? chemistryQuestion
+        : params.id === '4'
+          ? mathematicsQuestion
+          : allQuestion;
 
-  const sections = myQuestionData
+  const sections=myQuestionData
 
   // const filteredQuestionData = questionData.filter(section =>
   //   filteredTest?.subject.some(subj =>
@@ -110,9 +99,9 @@ export default function MockTestPage() {
   const dataArrayRef = useRef<Uint8Array | null>(null)
   const faceDetectionIntervalRef = useRef<number | null>(null)
   const noiseDetectionIntervalRef = useRef<number | null>(null)
-  
 
-    const router = useRouter()
+
+  const router = useRouter()
 
   useUnloadConfirmation("You have unsaved changes. Are you sure you want to leave?")
 
@@ -308,7 +297,7 @@ export default function MockTestPage() {
     // setTestSubmitted(true)
     setLoading(true)
 
-// Log all test data to console
+    // Log all test data to console
 
 
 
@@ -316,14 +305,14 @@ export default function MockTestPage() {
 
     const token = localStorage.getItem('token');
     const response2 = await fetch(`${BaseUrlApi}/user/`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-        },
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
     });
     const json2 = await response2.json();
-  
+
     // console.log(json2.user.id);
     console.log("Test Submission Data:", {
       filteredTest,
@@ -347,7 +336,7 @@ export default function MockTestPage() {
     }
 
 
-    const response = await fetch(`${BaseUrlApi}/mocktest`, {
+    const response = await fetch(`${BaseUrlApi}/leaderboard`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -355,7 +344,7 @@ export default function MockTestPage() {
       body: JSON.stringify({
         userId: json2.user.id,userName:json2.user.userName , subject: filteredTest,
         answersData: selectedAnswers, resultData: results,
-        timeSpent: timeSpent , securityEvents: securityEvents
+        timeSpent: timeSpent, securityEvents: securityEvents
       })
     })
     const json = await response.json()
@@ -365,7 +354,7 @@ export default function MockTestPage() {
 
 
 
-    
+
   }
 
   // Initialize window size monitoring, camera, and countdown timer on mount
@@ -566,7 +555,7 @@ export default function MockTestPage() {
                 </div>
                 <div className="grid grid-cols-2 gap-2 p-2 bg-gray-50 rounded-md">
                   <div>Mathematics:</div>
-                  <div className="font-medium text-right">{testResults.sectionScores.mathematics}</div>
+                  <div className="font-medium text-right">{testResults.sectionScores.math}</div>
                 </div>
                 <div className="grid grid-cols-2 gap-2 p-2 bg-gray-50 rounded-md">
                   <div>Chemistry:</div>
@@ -780,14 +769,14 @@ export default function MockTestPage() {
                 {isModelLoaded ? <p>✅ Model Loaded</p> : <p>⌛ Loading models...</p>}
               </div>
               {/* <FaceDetech/> */}
-                  {!loading?
-              <Button className="w-full bg-black text-white hover:bg-gray-800 cursor-pointer"  onClick={handleSubmitTest}>
-                Submit Test
-              </Button>
-              :
-              <Button className="w-full bg-black text-white hover:bg-gray-800" disabled >
-                Submit Test....
-              </Button>
+              {!loading ?
+                <Button className="w-full bg-black text-white hover:bg-gray-800 cursor-pointer" onClick={handleSubmitTest}>
+                  Submit Test
+                </Button>
+                :
+                <Button className="w-full bg-black text-white hover:bg-gray-800" disabled >
+                  Submit Test....
+                </Button>
               }
             </CardContent>
           </Card>

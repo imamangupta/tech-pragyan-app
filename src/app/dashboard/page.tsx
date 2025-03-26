@@ -15,8 +15,42 @@ import { SubjectAnalysisChart } from "@/components/subject-analysis-chart"
 import { StatCard } from "@/components/stat-card"
 import { UpcomingEvents } from "@/components/upcoming-events"
 import Sidebar from "@/components/Sidebar"
+import { useEffect, useState } from "react"
+import { BaseUrlApi } from "@/utils/constant"
+import Link from "next/link"
+
+interface UserData {
+    userName?: string;   // Optional property
+    email?: string;       // Add more fields as needed
+  }
 
 export default function Dashboard() {
+
+    const [data, setData] = useState<UserData>({});
+    const fetchData = async () => {
+        const token = localStorage.getItem('token');
+        const response = await fetch(`${BaseUrlApi}/user/`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        const json = await response.json();
+        setData(json.user)
+        console.log(json);
+        console.log(json.user.id);
+        
+    }
+
+    useEffect(() => {
+        fetchData()
+    }, [])
+
+
+
+
+
     const currentDate = new Date()
     const formattedDate = currentDate.toLocaleDateString("en-US", {
         weekday: "long",
@@ -27,15 +61,15 @@ export default function Dashboard() {
 
     return (
         <div className="flex min-h-screen bg-gray-50">
-           
-            <Sidebar/>
+
+            <Sidebar />
 
             {/* Main Content */}
             <main className="flex-1 p-6">
                 {/* Header */}
                 <header className="flex justify-between items-center mb-6">
                     <div>
-                        <h1 className="text-2xl font-bold">Hello, Abhishek</h1>
+                        <h1 className="text-2xl font-bold">Hello, {data.userName || 'username'}</h1>
                         <p className="text-gray-500">{formattedDate}</p>
                     </div>
                     <div className="flex items-center gap-4">
@@ -109,44 +143,18 @@ export default function Dashboard() {
                 <Card className="mb-6">
                     <CardContent className="p-6">
                         <div className="flex justify-between items-center mb-4">
-                            <h2 className="text-xl font-bold">Upcoming Events</h2>
-                            <Button className="bg-black text-white hover:bg-gray-800">Add Event</Button>
+                            <h2 className="text-xl font-bold">Upcoming Contest</h2>
+                            <Link href={'/dashboard/contest/leaderboard'} className="cursor-pointer">
+                            <Button className="bg-black text-white hover:bg-gray-800 cursor-pointer">View Leaderboard</Button>
+                            </Link>
                         </div>
                         <UpcomingEvents />
                     </CardContent>
                 </Card>
+                
+                
 
-                {/* Bottom Stats */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                    <StatCard
-                        value="25"
-                        label="Questions attempted today"
-                        icon={<FileText className="h-5 w-5" />}
-                        iconBg="bg-teal-100"
-                        iconColor="text-teal-500"
-                    />
-                    <StatCard
-                        value="1"
-                        label="Test completed today"
-                        icon={<BarChart3 className="h-5 w-5" />}
-                        iconBg="bg-teal-100"
-                        iconColor="text-teal-500"
-                    />
-                    <StatCard
-                        value="3h"
-                        label="Today Study Time"
-                        icon={<Clock className="h-5 w-5" />}
-                        iconBg="bg-teal-100"
-                        iconColor="text-teal-500"
-                    />
-                    <StatCard
-                        value="82%"
-                        label="Success rate of Today"
-                        icon={<Trophy className="h-5 w-5" />}
-                        iconBg="bg-teal-100"
-                        iconColor="text-teal-500"
-                    />
-                </div>
+               
 
                 {/* Footer */}
                 <footer className="mt-8 text-center text-gray-500 text-sm">All Right Reserved to PrepGen | © PrepGen</footer>
