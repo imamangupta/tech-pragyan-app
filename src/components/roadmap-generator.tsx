@@ -107,6 +107,14 @@ export default function RoadmapGenerator() {
       subtopics?: string[]
     }>
   }
+  interface topicData {
+    subject?: string
+    description?: string
+    title?: string
+    subtopics?: []
+    resources?: []
+   
+  }
 
   const generateRoadmap = async () => {
     if (subjects.length === 0 || !level || !duration) {
@@ -179,7 +187,7 @@ export default function RoadmapGenerator() {
 
     // Create nodes from the topics
     if (data.topics && Array.isArray(data.topics)) {
-      data.topics.forEach((topic: unknown, index: number) => {
+      data.topics.forEach((topic: topicData, index: number) => {
       // data.topics.forEach((topic: RoadmapApiResponse["topics"][0] , index: number) => {
         const nodeId = `node-${index}`
         const subjectName = topic.subject || subjects[0]
