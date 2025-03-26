@@ -73,7 +73,7 @@ export default function Sidebar() {
                         </Button>
                     </Link>
                     <Link href="/dashboard/ai-mentor">
-                        <Button variant={pathname.includes("profile")?'default':'ghost'} className="w-full  my-1 justify-start cursor-pointer">
+                        <Button variant={pathname.includes("ai-mentor")?'default':'ghost'} className="w-full  my-1 justify-start cursor-pointer">
                             <BotMessageSquare  className="mr-2 h-4 w-4" />
                             Ai-Mentor
                         </Button>
