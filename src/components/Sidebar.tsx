@@ -78,12 +78,12 @@ export default function Sidebar() {
                             Profile
                         </Button>
                     </Link>
-                    <Link href="/dashboard/setting">
+                    {/* <Link href="/dashboard/setting">
                         <Button variant={pathname.includes("setting")?'default':'ghost'} className="w-full  my-1 justify-start cursor-pointer">
                             <Settings className="mr-2 h-4 w-4" />
                             Setting
                         </Button>
-                    </Link>
+                    </Link> */}
                 </div>
             </nav>
 
