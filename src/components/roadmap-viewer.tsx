@@ -32,8 +32,9 @@ interface RoadmapViewerProps {
   isPreview?: boolean
 }
 
+
 // Helper function to layout nodes using dagre
-const getLayoutedElements = (nodes: unknown, edges: unknown, direction = "TB") => {
+const getLayoutedElements = (nodes: any, edges: any, direction = "TB") => {
   const dagreGraph = new dagre.graphlib.Graph()
   dagreGraph.setDefaultEdgeLabel(() => ({}))
   dagreGraph.setGraph({ rankdir: direction })
