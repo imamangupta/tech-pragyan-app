@@ -4,6 +4,7 @@ import { FaRobot, FaBookOpen, FaRoad, FaNewspaper, FaClipboardCheck, FaChalkboar
 import { FiArrowRight } from 'react-icons/fi';
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa';
 import { motion, useAnimation } from 'framer-motion';
+import Link from "next/link";
 import { useInView } from 'react-intersection-observer';
  // Make sure to add your image file
  interface TypewriterOptions {
@@ -50,6 +51,15 @@ const useTypewriter = (texts: string[], options: TypewriterOptions = { typingSpe
 };
 
 const Landing = () => {
+
+
+  const [isLogin, setIslogin] = useState(false);
+  useEffect(() => {
+    if (localStorage.getItem('token')) {
+     setIslogin(true)
+    }
+   }, [])
+
   const controls = useAnimation();
   const [ref, inView] = useInView({
     threshold: 0.1,
@@ -159,14 +169,31 @@ const Landing = () => {
                 ))}
               </div>
             </div>
+
+            {!isLogin ? <>
+
             <div className="flex items-center space-x-4">
-              <button className="px-4 py-2 rounded-md text-sm font-medium bg-gray-900 hover:bg-gray-800 text-white">
+              <Link href='/login'>
+              <button className="px-4 py-2 cursor-pointer rounded-md text-sm font-medium bg-gray-900 hover:bg-gray-800 text-white">
                 Login
               </button>
-              <button className="px-4 py-2 rounded-md text-sm font-medium bg-gray-100 hover:bg-gray-200 text-gray-900">
+              </Link>
+              <Link href='/signup'>
+              <button className="px-4 py-2 cursor-pointer rounded-md text-sm font-medium bg-gray-100 hover:bg-gray-200 text-gray-900">
                 Sign Up
               </button>
+              </Link>
             </div>
+            </>:<>
+            <div className="flex items-center space-x-4">
+              <Link href='/dashboard/overview'>
+              <button className="px-4 py-2 cursor-pointer rounded-md text-sm font-medium bg-gray-900 hover:bg-gray-800 text-white">
+                Dashboard
+              </button>
+              </Link>
+             
+            </div>
+            </>}
           </div>
         </div>
       </nav>
