@@ -123,8 +123,8 @@ export default function MockTestPage() {
     const question = currentSection.questions.find((q) => q.id === questionId)
 
     if (!question) return
-
-    const isCorrect = question.correctAnswer === selectedValue
+    let correctValue = question.options.find(item => item.id === question.correctAnswer)?.value;
+    const isCorrect = correctValue === selectedValue
 
     setSelectedAnswers((prev) => ({
       ...prev,
@@ -276,9 +276,11 @@ export default function MockTestPage() {
       section.questions.forEach((question) => {
         const userAnswerData = selectedAnswers[section.id][question.id]
 
+        let correctValue = question.options.find(item => item.id === question.correctAnswer)?.value;
+        // const isCorrect = correctValue === selectedValue
         if (!userAnswerData) {
           unanswered++
-        } else if (userAnswerData.selectedValue === question.correctAnswer) {
+        } else if (userAnswerData.selectedValue === correctValue) {
           // Correct answer: +4 points
           sectionScore += 4
           correctAnswers++
