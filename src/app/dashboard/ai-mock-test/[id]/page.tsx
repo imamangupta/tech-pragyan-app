@@ -361,6 +361,8 @@ export default function MockTestPage() {
     const json = await response.json()
     if (json) {
       router.push("/dashboard")
+      // window.close()
+
     }
 
 
